@@ -27,8 +27,6 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpFilter;
@@ -39,9 +37,7 @@ import org.slf4j.LoggerFactory;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.linting.VisibleForTesting;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.authorizer.DefaultTwitterOAuth1HttpRequestAuthorizer;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import com.sigpwned.dropwizard.auth.social.util.OAuth1;
-import com.sigpwned.dropwizard.auth.social.util.SocialAuth;
 import com.sigpwned.httpmodel.ModelHttpEntity;
 import com.sigpwned.httpmodel.ModelHttpHeaders;
 import com.sigpwned.httpmodel.ModelHttpQueryString;
@@ -105,10 +101,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   private final String twitterAuthenticateUrl;
   private final String twitterAccessTokenUrl;
 
-  @Inject
-  public TwitterOAuth1HttpFilter(@Named(SocialAuth.BASE_URL_NAMED) String baseUrl,
-      @Named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_KEY_NAMED) String consumerKey,
-      @Named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_SECRET_NAMED) String consumerSecret,
+  public TwitterOAuth1HttpFilter(String baseUrl, String consumerKey, String consumerSecret,
       TwitterOAuth1TokenStore store, TwitterOAuth1AuthenticatedHandler handler) {
     this(baseUrl, consumerKey, consumerSecret, store, handler,
         DefaultTwitterOAuth1HttpRequestAuthorizer.INSTANCE, DEFAULT_TWITTER_REQUEST_TOKEN_URL,

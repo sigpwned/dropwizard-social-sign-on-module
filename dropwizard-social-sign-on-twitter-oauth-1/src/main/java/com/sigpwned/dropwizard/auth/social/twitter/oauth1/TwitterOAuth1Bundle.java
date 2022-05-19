@@ -24,7 +24,6 @@ import javax.servlet.DispatcherType;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
-import com.sigpwned.dropwizard.auth.social.util.SocialAuth;
 import io.dropwizard.core.ConfiguredBundle;
 import io.dropwizard.core.setup.Environment;
 
@@ -59,7 +58,7 @@ public abstract class TwitterOAuth1Bundle<C extends TwitterOAuth1BundleConfigura
     environment.jersey().register(new AbstractBinder() {
       @Override
       protected void configure() {
-        bind(baseUrl).to(String.class).named(SocialAuth.BASE_URL_NAMED);
+        bind(baseUrl).to(String.class).named(TwitterOAuth1.TWITTER_OAUTH_1_BASE_URL_NAMED);
         bind(consumerKey).to(String.class).named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_KEY_NAMED);
         bind(consumerSecret).to(String.class)
             .named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_SECRET_NAMED);
