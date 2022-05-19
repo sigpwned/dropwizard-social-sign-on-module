@@ -21,6 +21,7 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Objects;
 import java.util.Optional;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Cookie;
@@ -28,6 +29,7 @@ import javax.ws.rs.core.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
+import com.sigpwned.dropwizard.auth.social.linting.VisibleForTesting;
 import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.Authorizer;
@@ -125,7 +127,8 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
     }
   }
 
-  private static class Authorization {
+  @VisibleForTesting
+  static class Authorization {
     public static Authorization fromString(String s) {
       int index = s.indexOf(' ');
       if (index == -1)
@@ -163,6 +166,25 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
     @Generated
     public String getCredentials() {
       return credentials;
+    }
+
+    @Override
+    @Generated
+    public int hashCode() {
+      return Objects.hash(credentials, method);
+    }
+
+    @Override
+    @Generated
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      Authorization other = (Authorization) obj;
+      return Objects.equals(credentials, other.credentials) && Objects.equals(method, other.method);
     }
 
     @Override

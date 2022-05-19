@@ -34,18 +34,6 @@ public class ExampleWebappIT {
     assertThat(true, is(true));
   }
 
-  // @Test
-  // @Ignore
-  // public void shouldAuthenticateSuccessfully() throws Exception {
-  // HttpClient client = HttpClient.newHttpClient();
-  //
-  // HttpResponse response = httpGet("/oauth/twitter/1/authenticate");
-  //
-  // // Some day, it would be nice to do an end-to-end test here. However, there's no clear way to
-  // do
-  // // this with the 3-legged flow because we need to log in.
-  // }
-
   @Test(expected = NotAuthorizedException.class)
   public void shouldFailIfNoCredentialsSuccessfully() throws Exception {
     httpGet("/v1/me");

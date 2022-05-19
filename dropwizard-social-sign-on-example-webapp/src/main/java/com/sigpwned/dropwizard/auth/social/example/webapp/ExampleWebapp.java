@@ -167,7 +167,7 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
     // Set up our authentication. We treat access tokens as credentials.
     environment.jersey()
         .register(new AuthDynamicFeature(AccessTokenAuthFilter.<TwitterAccount>builder()
-            .setAuthenticator(new ExampleAuthenticator(sessionStore))
+            .setRealm("Example").setAuthenticator(new ExampleAuthenticator(sessionStore))
             .setAuthorizer(new ExampleAuthorizer()).buildAuthFilter()));
 
     // Our application's resources are simple: you can ask who you are. The Twitter OAuth resources
