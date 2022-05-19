@@ -102,10 +102,12 @@ public class TwitterOAuth1HttpFilterTest {
     final HttpUrl twitterAccessTokenUrl = server.url(TwitterOAuth1HttpFilter.BASE_PATH + "/"
         + TwitterOAuth1HttpFilter.DEFAULT_TWITTER_ACCESS_TOKEN_URL);
 
-    TwitterOAuth1HttpFilter unit = new TwitterOAuth1HttpFilter(
-        "http://localhost:" + server.getPort(), consumerKey, consumerSecret, store, handler,
-        DefaultTwitterOAuth1HttpRequestAuthorizer.INSTANCE, twitterRequestTokenUrl.toString(),
-        twitterAuthenticateUrl.toString(), twitterAccessTokenUrl.toString());
+    final String baseUrl = String.format("http://%s:%d", server.getHostName(), server.getPort());
+
+    TwitterOAuth1HttpFilter unit =
+        new TwitterOAuth1HttpFilter(baseUrl, consumerKey, consumerSecret, store, handler,
+            DefaultTwitterOAuth1HttpRequestAuthorizer.INSTANCE, twitterRequestTokenUrl.toString(),
+            twitterAuthenticateUrl.toString(), twitterAccessTokenUrl.toString());
 
     final HttpServletRequest req1 = mock(HttpServletRequest.class);
     when(req1.getScheme()).thenReturn("http");
@@ -113,8 +115,8 @@ public class TwitterOAuth1HttpFilterTest {
     when(req1.getMethod()).thenReturn("GET");
     when(req1.getServerName()).thenReturn("localhost");
     when(req1.getServerPort()).thenReturn(server.getPort());
-    when(req1.getRequestURI())
-        .thenReturn("/oauth/twitter/1/" + TwitterOAuth1HttpFilter.AUTHENTICATE);
+    when(req1.getRequestURI()).thenReturn(
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.AUTHENTICATE);
     when(req1.getHeaderNames()).thenReturn(emptyEnumeration());
 
     ModelHttpResponse response1 = unit.authenticate(req1);
@@ -122,9 +124,11 @@ public class TwitterOAuth1HttpFilterTest {
     verify(store).putTwitterOAuth1TokenSecret(oauthToken, oauthTokenSecret);
 
     assertThat(response1.getStatusCode(), is(ModelHttpStatusCodes.TEMPORARY_REDIRECT));
-    assertThat(response1.getHeaders().stream()
-        .filter(h -> h.getName().equals(ModelHttpHeaderNames.LOCATION)).map(h -> h.getValue())
-        .findFirst().orElseThrow(AssertionError::new), is(twitterAuthenticateUrl.toString()));
+    assertThat(
+        response1.getHeaders().stream()
+            .filter(h -> h.getName().equals(ModelHttpHeaderNames.LOCATION)).map(h -> h.getValue())
+            .findFirst().orElseThrow(AssertionError::new),
+        is(twitterAuthenticateUrl.toString() + "?oauth_token=" + oauthToken));
 
     RecordedRequest request1 = server.takeRequest();
     assertThat(request1.getRequestUrl().queryParameter(OAuth1.OAUTH_CALLBACK_NAME),
@@ -136,7 +140,8 @@ public class TwitterOAuth1HttpFilterTest {
     when(req2.getMethod()).thenReturn("GET");
     when(req2.getServerName()).thenReturn("localhost");
     when(req2.getServerPort()).thenReturn(server.getPort());
-    when(req2.getRequestURI()).thenReturn("/oauth/twitter/1/" + TwitterOAuth1HttpFilter.CALLBACK);
+    when(req2.getRequestURI()).thenReturn(
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.CALLBACK);
     when(req2.getQueryString()).thenReturn(ModelHttpQueryString
         .of(ModelHttpQueryString.Parameter.of(OAuth1.OAUTH_TOKEN_NAME, oauthToken),
             ModelHttpQueryString.Parameter.of(OAuth1.OAUTH_VERIFIER_NAME, oauthTokenVerifier))
@@ -183,10 +188,12 @@ public class TwitterOAuth1HttpFilterTest {
     final HttpUrl twitterAccessTokenUrl = server.url(TwitterOAuth1HttpFilter.BASE_PATH + "/"
         + TwitterOAuth1HttpFilter.DEFAULT_TWITTER_ACCESS_TOKEN_URL);
 
-    TwitterOAuth1HttpFilter unit = new TwitterOAuth1HttpFilter(
-        "http://localhost:" + server.getPort(), consumerKey, consumerSecret, store, handler,
-        DefaultTwitterOAuth1HttpRequestAuthorizer.INSTANCE, twitterRequestTokenUrl.toString(),
-        twitterAuthenticateUrl.toString(), twitterAccessTokenUrl.toString());
+    final String baseUrl = String.format("http://%s:%d", server.getHostName(), server.getPort());
+
+    TwitterOAuth1HttpFilter unit =
+        new TwitterOAuth1HttpFilter(baseUrl, consumerKey, consumerSecret, store, handler,
+            DefaultTwitterOAuth1HttpRequestAuthorizer.INSTANCE, twitterRequestTokenUrl.toString(),
+            twitterAuthenticateUrl.toString(), twitterAccessTokenUrl.toString());
 
     final HttpServletRequest req1 = mock(HttpServletRequest.class);
     when(req1.getScheme()).thenReturn("http");
@@ -194,8 +201,8 @@ public class TwitterOAuth1HttpFilterTest {
     when(req1.getMethod()).thenReturn("GET");
     when(req1.getServerName()).thenReturn("localhost");
     when(req1.getServerPort()).thenReturn(server.getPort());
-    when(req1.getRequestURI())
-        .thenReturn("/oauth/twitter/1/" + TwitterOAuth1HttpFilter.AUTHENTICATE);
+    when(req1.getRequestURI()).thenReturn(
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.AUTHENTICATE);
     when(req1.getHeaderNames()).thenReturn(emptyEnumeration());
 
     ModelHttpResponse response1 = unit.authenticate(req1);
@@ -203,9 +210,11 @@ public class TwitterOAuth1HttpFilterTest {
     verify(store).putTwitterOAuth1TokenSecret(oauthToken, oauthTokenSecret);
 
     assertThat(response1.getStatusCode(), is(ModelHttpStatusCodes.TEMPORARY_REDIRECT));
-    assertThat(response1.getHeaders().stream()
-        .filter(h -> h.getName().equals(ModelHttpHeaderNames.LOCATION)).map(h -> h.getValue())
-        .findFirst().orElseThrow(AssertionError::new), is(twitterAuthenticateUrl.toString()));
+    assertThat(
+        response1.getHeaders().stream()
+            .filter(h -> h.getName().equals(ModelHttpHeaderNames.LOCATION)).map(h -> h.getValue())
+            .findFirst().orElseThrow(AssertionError::new),
+        is(twitterAuthenticateUrl.toString() + "?oauth_token=" + oauthToken));
 
     RecordedRequest request1 = server.takeRequest();
     assertThat(request1.getRequestUrl().queryParameter(OAuth1.OAUTH_CALLBACK_NAME),
@@ -217,7 +226,8 @@ public class TwitterOAuth1HttpFilterTest {
     when(req2.getMethod()).thenReturn("GET");
     when(req2.getServerName()).thenReturn("localhost");
     when(req2.getServerPort()).thenReturn(server.getPort());
-    when(req2.getRequestURI()).thenReturn("/oauth/twitter/1/" + TwitterOAuth1HttpFilter.CALLBACK);
+    when(req2.getRequestURI()).thenReturn(
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.CALLBACK);
     when(req2.getQueryString()).thenReturn(ModelHttpQueryString
         .of(ModelHttpQueryString.Parameter.of(OAuth1.OAUTH_TOKEN_NAME, "trash"),
             ModelHttpQueryString.Parameter.of(OAuth1.OAUTH_VERIFIER_NAME, oauthTokenVerifier))
@@ -238,7 +248,7 @@ public class TwitterOAuth1HttpFilterTest {
 
     final TwitterOAuth1AuthenticatedHandler handler = mock(TwitterOAuth1AuthenticatedHandler.class);
 
-    final String baseUrl = "";
+    final String baseUrl = String.format("http://%s:%d", server.getHostName(), server.getPort());
 
     @SuppressWarnings("serial")
     TwitterOAuth1HttpFilter unit =
@@ -294,7 +304,7 @@ public class TwitterOAuth1HttpFilterTest {
 
     final AtomicBoolean called = new AtomicBoolean(false);
 
-    final String baseUrl = "";
+    final String baseUrl = String.format("http://%s:%d", server.getHostName(), server.getPort());
 
     @SuppressWarnings("serial")
     TwitterOAuth1HttpFilter unit =
@@ -314,8 +324,8 @@ public class TwitterOAuth1HttpFilterTest {
         };
 
     final HttpServletRequest req = mock(HttpServletRequest.class);
-    when(req.getRequestURI()).thenReturn(baseUrl + "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/"
-        + TwitterOAuth1HttpFilter.AUTHENTICATE);
+    when(req.getRequestURI()).thenReturn(
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.AUTHENTICATE);
 
     final HttpServletResponse res = mock(HttpServletResponse.class);
     when(res.getOutputStream()).thenReturn(new ServletOutputStream() {
@@ -353,7 +363,7 @@ public class TwitterOAuth1HttpFilterTest {
 
     final AtomicBoolean called = new AtomicBoolean(false);
 
-    final String baseUrl = "";
+    final String baseUrl = String.format("http://%s:%d", server.getHostName(), server.getPort());
 
     @SuppressWarnings("serial")
     TwitterOAuth1HttpFilter unit =
@@ -374,7 +384,7 @@ public class TwitterOAuth1HttpFilterTest {
 
     final HttpServletRequest req = mock(HttpServletRequest.class);
     when(req.getRequestURI()).thenReturn(
-        baseUrl + "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.CALLBACK);
+        "/" + TwitterOAuth1HttpFilter.BASE_PATH + "/" + TwitterOAuth1HttpFilter.CALLBACK);
 
     final HttpServletResponse res = mock(HttpServletResponse.class);
     when(res.getOutputStream()).thenReturn(new ServletOutputStream() {

@@ -22,6 +22,7 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 import javax.validation.Valid;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.AccessTokenStoreFactory;
+import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SessionStoreFactory;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SocialAuthConfiguration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1BundleConfiguration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1Configuration;
@@ -34,6 +35,9 @@ public class ExampleConfiguration extends Configuration
 
   @Valid
   private AccessTokenStoreFactory accessTokenStore;
+
+  @Valid
+  private SessionStoreFactory sessionStore;
 
   /**
    * @return the socialAuth
@@ -61,6 +65,20 @@ public class ExampleConfiguration extends Configuration
    */
   public void setAccessTokenStore(AccessTokenStoreFactory accessTokenStore) {
     this.accessTokenStore = accessTokenStore;
+  }
+
+  /**
+   * @return the sessionStore
+   */
+  public SessionStoreFactory getSessionStore() {
+    return sessionStore;
+  }
+
+  /**
+   * @param sessionStore the sessionStore to set
+   */
+  public void setSessionStore(SessionStoreFactory sessionStore) {
+    this.sessionStore = sessionStore;
   }
 
   @Override

@@ -15,3 +15,7 @@ socialAuth:
 accessTokenStore:
   username: administrator
   password: "P4ssw0rd?"
+  
+sessionStore:
+  username: administrator
+  password: "S3curityM4tters!"

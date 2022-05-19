@@ -1,6 +1,6 @@
 /*-
  * =================================LICENSE_START==================================
- * dropwizard-social-sign-on
+ * dropwizard-social-sign-on-example-webapp
  * ====================================SECTION=====================================
  * Copyright (C) 2022 Andy Boothe
  * ====================================SECTION=====================================
@@ -17,12 +17,13 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.twitter.oauth1;
+package com.sigpwned.dropwizard.auth.social.example.webapp;
 
-public final class TwitterOAuth1 {
-  private TwitterOAuth1() {}
+import java.util.Optional;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 
-  public static final String TWITTER_OAUTH1_CONSUMER_KEY_NAMED = "twitterOAuth1ConsumerKey";
+public interface SessionStore {
+  public void putSession(String token, TwitterAccount session);
 
-  public static final String TWITTER_OAUTH1_CONSUMER_SECRET_NAMED = "twitterOAuth1ConsumerSecret";
+  public Optional<TwitterAccount> getSession(String token);
 }

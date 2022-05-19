@@ -21,8 +21,8 @@ package com.sigpwned.dropwizard.auth.social.example.webapp.auth;
 
 import java.util.Optional;
 import javax.inject.Inject;
-import com.sigpwned.dropwizard.auth.social.example.webapp.AccessTokenStore;
-import com.sigpwned.dropwizard.auth.social.example.webapp.model.Account;
+import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 
@@ -30,38 +30,33 @@ import io.dropwizard.auth.Authenticator;
  * We treat access tokens as session tokens here. In practice, you'd want to use some proper session
  * token or a JWT, but for our little demo here, it'll do just fine.
  */
-public class ExampleAuthenticator implements Authenticator<String, Account> {
-  private final AccessTokenStore store;
+public class ExampleAuthenticator implements Authenticator<String, TwitterAccount> {
+  private final SessionStore store;
 
   @Inject
-  public ExampleAuthenticator(AccessTokenStore store) {
+  public ExampleAuthenticator(SessionStore store) {
     this.store = store;
   }
 
   /**
-   * We accept an access token if we have its corresponding secret in the given store
+   * We accept an access token if we have an existing session for it.
    */
   @Override
-  public Optional<Account> authenticate(String accessToken) throws AuthenticationException {
+  public Optional<TwitterAccount> authenticate(String accessToken) throws AuthenticationException {
     // Let's see if we can't find our access token secret
-    String accessTokenSecret;
+    TwitterAccount me;
     try {
-      accessTokenSecret = getStore().getTwitterOAuth1AccessTokenSecret(accessToken).orElse(null);
+      me = getStore().getSession(accessToken).orElse(null);
     } catch (Exception e) {
-      throw new AuthenticationException("Failed to communicate with token store", e);
+      throw new AuthenticationException("Failed to communicate with session store", e);
     }
-
-    if (accessTokenSecret != null) {
-      return Optional.of(Account.of(accessToken, accessTokenSecret));
-    } else {
-      return Optional.empty();
-    }
+    return Optional.ofNullable(me);
   }
 
   /**
    * @return the store
    */
-  private AccessTokenStore getStore() {
+  private SessionStore getStore() {
     return store;
   }
 }

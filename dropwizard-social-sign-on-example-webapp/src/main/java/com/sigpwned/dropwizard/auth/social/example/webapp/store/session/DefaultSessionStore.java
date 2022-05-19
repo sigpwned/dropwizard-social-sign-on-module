@@ -17,15 +17,19 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.example.webapp.store.oauth;
+package com.sigpwned.dropwizard.auth.social.example.webapp.store.session;
 
-import java.io.IOException;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import com.sigpwned.dropwizard.auth.social.example.webapp.OAuthTokenStore;
+import java.util.concurrent.ConcurrentMap;
+import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 
-public class DefaultOAuthTokenStore implements OAuthTokenStore {
+/**
+ * Normally you'd use some kind of shared storage, like a database or redis, but for an example
+ * webapp, this will do just fine.
+ */
+public class DefaultSessionStore implements SessionStore {
   /**
    * This is an in-memory store, so we don't need this, but it shows how to pass configuration data
    * through the app.
@@ -40,21 +44,21 @@ public class DefaultOAuthTokenStore implements OAuthTokenStore {
   @SuppressWarnings("unused")
   private final String password;
 
-  private final Map<String, String> tokens;
+  private final ConcurrentMap<String, TwitterAccount> sessions;
 
-  public DefaultOAuthTokenStore(String username, String password) {
+  public DefaultSessionStore(String username, String password) {
     this.username = username;
     this.password = password;
-    this.tokens = new ConcurrentHashMap<>();
+    this.sessions = new ConcurrentHashMap<>();
   }
 
   @Override
-  public void putTwitterOAuth1TokenSecret(String token, String tokenSecret) throws IOException {
-    tokens.put(token, tokenSecret);
+  public void putSession(String token, TwitterAccount session) {
+    sessions.put(token, session);
   }
 
   @Override
-  public Optional<String> getTwitterOAuth1TokenSecret(String token) throws IOException {
-    return Optional.ofNullable(tokens.get(token));
+  public Optional<TwitterAccount> getSession(String token) {
+    return Optional.ofNullable(sessions.get(token));
   }
 }

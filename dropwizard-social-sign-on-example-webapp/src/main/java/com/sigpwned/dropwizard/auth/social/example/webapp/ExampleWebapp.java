@@ -21,17 +21,18 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 
 import java.io.IOException;
 import java.util.Optional;
-import javax.ws.rs.core.Cookie;
+import javax.ws.rs.InternalServerErrorException;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.TwitterOAuth1Bundle;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthenticator;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthorizer;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.AccessTokenStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.OAuthTokenStoreHealthCheck;
-import com.sigpwned.dropwizard.auth.social.example.webapp.model.Account;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import com.sigpwned.dropwizard.auth.social.example.webapp.resource.MeResource;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1AuthenticatedHandler;
 import com.sigpwned.httpmodel.ModelHttpHeaders;
+import com.sigpwned.httpmodel.ModelHttpQueryString;
 import com.sigpwned.httpmodel.ModelHttpResponse;
 import com.sigpwned.httpmodel.util.ModelHttpHeaderNames;
 import com.sigpwned.httpmodel.util.ModelHttpStatusCodes;
@@ -41,6 +42,10 @@ import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * This web application uses JWTs as a stateless session ID for a user-facing SPA. (If we use our
@@ -75,27 +80,51 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
 
       /**
        * Create our authenticated handler. Note that we store our new access token (since we won't
-       * get to see it again) and then we just redirect the user to another page and set a cookie.
-       * (Note that the existing TwitterOAuth1TokenStore is for temporary token secrets used during
-       * the OAuth flow and not for proper access tokens.) Also, in a real application, you'd set a
-       * cookie with a proper session token or JWT instead of just using the access token, for
-       * example, but for this demo, this will do just fine. We don't share the token secret, so
-       * it's not totally broken.
+       * get to see it again) and then we just redirect the user to another page with our token in a
+       * query parameter. (Note that the existing TwitterOAuth1TokenStore is for temporary token
+       * secrets used during the OAuth flow and not for proper access tokens.) In a real
+       * application, you'd probably set a cookie with a proper session token or JWT instead of just
+       * using the access token, for example, but for this demo, this will do just fine. We use a
+       * query parameter just because this example typically runs on localhost, and Cookie rules for
+       * localhost are wonky. We don't share the token secret, so it's not totally broken.
        */
       @Override
       protected TwitterOAuth1AuthenticatedHandler getAuthenticatedHandler(
           ExampleConfiguration configuration) {
-        final AccessTokenStore store = configuration.getAccessTokenStore().build();
+        final String consumerKey = configuration.getTwitterOAuth1Configuration().getConsumerKey();
+        final String consumerSecret =
+            configuration.getTwitterOAuth1Configuration().getConsumerSecret();
+        final AccessTokenStore tokenStore = configuration.getAccessTokenStore().build();
+        final SessionStore sessionStore = configuration.getSessionStore().build();
         return new TwitterOAuth1AuthenticatedHandler() {
           @Override
           public ModelHttpResponse twitterOAuth1Authenticated(String accessToken,
               String accessTokenSecret) throws IOException {
-            store.putTwitterOAuth1AccessToken(accessToken, accessTokenSecret);
+            // Look up our Twitter user
+            User user;
+            try {
+              user = new TwitterFactory(new ConfigurationBuilder().setOAuthConsumerKey(consumerKey)
+                  .setOAuthConsumerSecret(consumerSecret).setOAuthAccessToken(accessToken)
+                  .setOAuthAccessTokenSecret(accessTokenSecret).build()).getInstance()
+                      .verifyCredentials();
+            } catch (TwitterException e) {
+              throw new InternalServerErrorException("Failed to verify new Twitter credentials", e);
+            }
+
+            // Create a session for our user using their access token
+            sessionStore.putSession(accessToken, TwitterAccount.fromUser(user));
+
+            // Store our access token secret for later. We don't do anything else with it, but
+            // obviously in a real application you'd want to keep these credentials stored securely!
+            tokenStore.putTwitterOAuth1AccessToken(user.getId(), accessToken, accessTokenSecret);
+
+            // Again, normally, you'd probably want to use a cookie, but for a demo, this is just
+            // fine, and it avoids Cookie nonsense on localhost.
             return ModelHttpResponse.of(ModelHttpStatusCodes.TEMPORARY_REDIRECT,
-                ModelHttpHeaders.of(
-                    ModelHttpHeaders.Header.of(ModelHttpHeaderNames.LOCATION, "/me"),
-                    ModelHttpHeaders.Header.of(ModelHttpHeaderNames.SET_COOKIE,
-                        new Cookie("token", accessToken).toString())),
+                ModelHttpHeaders.of(ModelHttpHeaders.Header.of(ModelHttpHeaderNames.LOCATION,
+                    "/v1/me" + "?"
+                        + ModelHttpQueryString
+                            .of(ModelHttpQueryString.Parameter.of("token", accessToken)))),
                 Optional.empty());
           }
         };
@@ -108,22 +137,24 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
     // We'll want these for health checks
     OAuthTokenStore oauthTokenStore = configuration.getSocialAuth().getOAuthTokenStore().build();
     AccessTokenStore accessTokenStore = configuration.getAccessTokenStore().build();
+    SessionStore sessionStore = configuration.getSessionStore().build();
 
     // Our OAuthTokenStore instance has been registered many times under other types, but register
-    // it under the umbrella OAuthTokenStore type now. Our AccessTokenStore has never been
-    // registered, so register it here now.
+    // it under the umbrella OAuthTokenStore type now. Our AccessTokenStore and SessionStore have
+    // never been registered, so register them here now.
     environment.jersey().register(new AbstractBinder() {
       @Override
       protected void configure() {
         bind(oauthTokenStore).to(OAuthTokenStore.class);
         bind(accessTokenStore).to(AccessTokenStore.class);
+        bind(sessionStore).to(SessionStore.class);
       }
     });
 
     // Set up our authentication. We treat access tokens as credentials.
     environment.jersey()
-        .register(new AuthDynamicFeature(AccessTokenAuthFilter.<Account>builder()
-            .setAuthenticator(new ExampleAuthenticator(accessTokenStore))
+        .register(new AuthDynamicFeature(AccessTokenAuthFilter.<TwitterAccount>builder()
+            .setAuthenticator(new ExampleAuthenticator(sessionStore))
             .setAuthorizer(new ExampleAuthorizer()).buildAuthFilter()));
 
     // Our application's resources are simple: you can ask who you are. The OAuth resources are

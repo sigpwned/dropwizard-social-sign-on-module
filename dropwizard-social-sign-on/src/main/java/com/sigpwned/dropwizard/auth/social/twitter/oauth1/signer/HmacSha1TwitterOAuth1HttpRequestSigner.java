@@ -106,11 +106,7 @@ public class HmacSha1TwitterOAuth1HttpRequestSigner implements TwitterOAuth1Http
     byte[] signatureBase = computeSignatureBaseString(request, oAuthNonce, oAuthTimestamp,
         oAuthVersion, consumerKey, token);
     
-    System.out.println(new String(signatureBase));
-
     byte[] signingKey = computeSigningKey(consumerSecret, tokenSecret);
-
-    System.out.println(new String(signingKey));
 
     Key key = new SecretKeySpec(signingKey, 0, signingKey.length, ALGORITHM);
 

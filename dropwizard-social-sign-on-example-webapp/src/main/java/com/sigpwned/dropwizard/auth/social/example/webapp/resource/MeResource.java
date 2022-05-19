@@ -20,8 +20,6 @@
 package com.sigpwned.dropwizard.auth.social.example.webapp.resource;
 
 import javax.annotation.security.PermitAll;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,9 +27,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import com.sigpwned.dropwizard.auth.social.example.webapp.linting.VisibleForTesting;
-import com.sigpwned.dropwizard.auth.social.example.webapp.model.Account;
-import com.sigpwned.dropwizard.auth.social.example.webapp.model.CurrentUser;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 
 /**
  * A simple example endpoint that returns the current user. Note that the class is annotated with
@@ -44,23 +40,16 @@ public class MeResource {
   @VisibleForTesting
   SecurityContext context;
 
-  private String consumerKey;
-
-  private String consumerSecret;
-
-  @Inject
-  public MeResource(@Named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_KEY_NAMED) String consumerKey,
-      @Named(TwitterOAuth1.TWITTER_OAUTH1_CONSUMER_SECRET_NAMED) String consumerSecret) {
-    this.consumerKey = consumerKey;
-    this.consumerSecret = consumerSecret;
-  }
-
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public CurrentUser getMe() {
-    Account account = (Account) context.getUserPrincipal();
-    // TODO Create twitter4j client
-    return CurrentUser.of(account.getAccessToken(), account.getAccessToken(),
-        account.getAccessToken());
+  public TwitterAccount getMe() {
+    return (TwitterAccount) getContext().getUserPrincipal();
+  }
+
+  /**
+   * @return the context
+   */
+  private SecurityContext getContext() {
+    return context;
   }
 }

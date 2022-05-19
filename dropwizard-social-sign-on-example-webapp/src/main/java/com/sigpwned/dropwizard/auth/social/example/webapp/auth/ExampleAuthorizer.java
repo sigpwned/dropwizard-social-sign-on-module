@@ -21,16 +21,16 @@ package com.sigpwned.dropwizard.auth.social.example.webapp.auth;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import com.sigpwned.dropwizard.auth.social.example.webapp.model.Account;
+import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import io.dropwizard.auth.Authorizer;
 
 /**
  * We use a trivially simple authorization model. A real application might include more information
  * on the account and make authorization decisions on that basis.
  */
-public class ExampleAuthorizer implements Authorizer<Account> {
+public class ExampleAuthorizer implements Authorizer<TwitterAccount> {
   @Override
-  public boolean authorize(Account principal, String role,
+  public boolean authorize(TwitterAccount principal, String role,
       @Nullable ContainerRequestContext requestContext) {
     // We have no roles. Everyone can do everything.
     return true;

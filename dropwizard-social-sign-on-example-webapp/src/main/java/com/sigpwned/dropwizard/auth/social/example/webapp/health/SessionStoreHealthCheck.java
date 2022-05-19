@@ -1,6 +1,6 @@
 /*-
  * =================================LICENSE_START==================================
- * dropwizard-social-sign-on
+ * dropwizard-jose-jwt-example-webapp
  * ====================================SECTION=====================================
  * Copyright (C) 2022 Andy Boothe
  * ====================================SECTION=====================================
@@ -17,48 +17,38 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.twitter.oauth1;
+package com.sigpwned.dropwizard.auth.social.example.webapp.health;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import com.codahale.metrics.health.HealthCheck;
+import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
 
-public class TwitterOAuth1Configuration {
-  @NotNull
-  @NotEmpty
-  @NotBlank
-  private String consumerKey;
+/**
+ * You should always make sure your external dependencies are healthy.
+ */
+public class SessionStoreHealthCheck extends HealthCheck {
+  public static final String NAME = "AccessTokenStore";
 
-  @NotNull
-  @NotEmpty
-  @NotBlank
-  private String consumerSecret;
+  private final SessionStore sessionStore;
 
-  /**
-   * @return the consumerKey
-   */
-  public String getConsumerKey() {
-    return consumerKey;
+  public SessionStoreHealthCheck(SessionStore sessionStore) {
+    this.sessionStore = sessionStore;
+  }
+
+  @Override
+  protected Result check() throws Exception {
+    try {
+      // We don't care if we get a hit, only that we don't get an exception.
+      getSessionStore().getSession("example");
+      return Result.healthy();
+    } catch (Exception e) {
+      return Result.unhealthy(e);
+    }
   }
 
   /**
-   * @param consumerKey the consumerKey to set
+   * @return the accessTokenStore
    */
-  public void setConsumerKey(String consumerKey) {
-    this.consumerKey = consumerKey;
-  }
-
-  /**
-   * @return the consumerSecret
-   */
-  public String getConsumerSecret() {
-    return consumerSecret;
-  }
-
-  /**
-   * @param consumerSecret the consumerSecret to set
-   */
-  public void setConsumerSecret(String consumerSecret) {
-    this.consumerSecret = consumerSecret;
+  private SessionStore getSessionStore() {
+    return sessionStore;
   }
 }
