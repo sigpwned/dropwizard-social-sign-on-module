@@ -25,7 +25,7 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.AccessTo
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SessionStoreFactory;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SocialAuthConfiguration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1BundleConfiguration;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1Configuration;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 import io.dropwizard.core.Configuration;
 
 public class ExampleConfiguration extends Configuration

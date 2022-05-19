@@ -178,7 +178,8 @@
     </dependencyManagement>
 
     <modules>
-        <module>dropwizard-social-sign-on</module>
+        <module>dropwizard-social-sign-on-core</module>
+        <module>dropwizard-social-sign-on-twitter-oauth-1</module>
         <module>dropwizard-social-sign-on-example-webapp</module>
     </modules>
 

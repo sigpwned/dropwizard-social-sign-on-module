@@ -17,18 +17,14 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social;
+package com.sigpwned.dropwizard.auth.social.twitter.oauth1;
 
 import java.util.EnumSet;
 import java.util.Optional;
 import javax.servlet.DispatcherType;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1AuthenticatedHandler;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1BundleConfiguration;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1Configuration;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1HttpFilter;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1TokenStore;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import com.sigpwned.dropwizard.auth.social.util.SocialAuth;
 import io.dropwizard.core.ConfiguredBundle;
 import io.dropwizard.core.setup.Environment;

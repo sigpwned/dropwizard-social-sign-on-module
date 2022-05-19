@@ -7,8 +7,8 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dropwizard-social-sign-on</artifactId>
-    <name>dropwizard-social-sign-on</name>
+    <artifactId>dropwizard-social-sign-on-twitter-oauth-1</artifactId>
+    <name>dropwizard-social-sign-on-twitter-oauth-1</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -17,17 +17,14 @@
             <artifactId>dropwizard-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-auth</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.sigpwned</groupId>
             <artifactId>httpmodel-servlet</artifactId>
             <version>0.0.0</version>
         </dependency>
         <dependency>
-            <groupId>jakarta.inject</groupId>
-            <artifactId>jakarta.inject-api</artifactId>
+            <groupId>com.sigpwned</groupId>
+            <artifactId>dropwizard-social-sign-on-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -55,11 +52,6 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
             <version>4.9.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

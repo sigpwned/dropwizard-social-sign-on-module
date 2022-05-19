@@ -21,7 +21,7 @@ package com.sigpwned.dropwizard.auth.social.example.webapp.configuration;
 
 import javax.validation.Valid;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1Configuration;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 
 public class SocialAuthConfiguration {
   @Valid

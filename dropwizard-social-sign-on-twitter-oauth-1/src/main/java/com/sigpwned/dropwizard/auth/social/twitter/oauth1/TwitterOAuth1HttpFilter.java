@@ -35,6 +35,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.authorizer.DefaultTwitterOAuth1HttpRequestAuthorizer;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import com.sigpwned.dropwizard.auth.social.util.OAuth1;
 import com.sigpwned.dropwizard.auth.social.util.SocialAuth;
 import com.sigpwned.httpmodel.ModelHttpEntity;

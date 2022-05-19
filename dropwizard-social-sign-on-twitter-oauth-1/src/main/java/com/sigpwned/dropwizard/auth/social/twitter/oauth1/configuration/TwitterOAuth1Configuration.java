@@ -17,12 +17,48 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.twitter.oauth1;
+package com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration;
 
-public final class TwitterOAuth1 {
-  private TwitterOAuth1() {}
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-  public static final String TWITTER_OAUTH1_CONSUMER_KEY_NAMED = "twitterOAuth1ConsumerKey";
+public class TwitterOAuth1Configuration {
+  @NotNull
+  @NotEmpty
+  @NotBlank
+  private String consumerKey;
 
-  public static final String TWITTER_OAUTH1_CONSUMER_SECRET_NAMED = "twitterOAuth1ConsumerSecret";
+  @NotNull
+  @NotEmpty
+  @NotBlank
+  private String consumerSecret;
+
+  /**
+   * @return the consumerKey
+   */
+  public String getConsumerKey() {
+    return consumerKey;
+  }
+
+  /**
+   * @param consumerKey the consumerKey to set
+   */
+  public void setConsumerKey(String consumerKey) {
+    this.consumerKey = consumerKey;
+  }
+
+  /**
+   * @return the consumerSecret
+   */
+  public String getConsumerSecret() {
+    return consumerSecret;
+  }
+
+  /**
+   * @param consumerSecret the consumerSecret to set
+   */
+  public void setConsumerSecret(String consumerSecret) {
+    this.consumerSecret = consumerSecret;
+  }
 }

@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Optional;
 import javax.ws.rs.InternalServerErrorException;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import com.sigpwned.dropwizard.auth.social.TwitterOAuth1Bundle;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthenticator;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthorizer;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.AccessTokenStoreHealthCheck;
@@ -32,6 +31,7 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.health.SessionStoreHea
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import com.sigpwned.dropwizard.auth.social.example.webapp.resource.MeResource;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1AuthenticatedHandler;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1Bundle;
 import com.sigpwned.httpmodel.ModelHttpHeaders;
 import com.sigpwned.httpmodel.ModelHttpQueryString;
 import com.sigpwned.httpmodel.ModelHttpResponse;

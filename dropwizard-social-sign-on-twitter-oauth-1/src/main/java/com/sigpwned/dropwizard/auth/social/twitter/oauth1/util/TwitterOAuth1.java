@@ -1,6 +1,6 @@
 /*-
  * =================================LICENSE_START==================================
- * dropwizard-jose-jwt-example-webapp
+ * dropwizard-social-sign-on
  * ====================================SECTION=====================================
  * Copyright (C) 2022 Andy Boothe
  * ====================================SECTION=====================================
@@ -17,19 +17,12 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.example.webapp.linting;
+package com.sigpwned.dropwizard.auth.social.twitter.oauth1.util;
 
-import static java.lang.annotation.ElementType.CONSTRUCTOR;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.CLASS;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+public final class TwitterOAuth1 {
+  private TwitterOAuth1() {}
 
-/**
- * Used to mark code generated automatically to adjust code coverage calculation
- */
-@Retention(CLASS)
-@Target({TYPE, METHOD, CONSTRUCTOR})
-public @interface Generated {
+  public static final String TWITTER_OAUTH1_CONSUMER_KEY_NAMED = "twitterOAuth1ConsumerKey";
+
+  public static final String TWITTER_OAUTH1_CONSUMER_SECRET_NAMED = "twitterOAuth1ConsumerSecret";
 }
