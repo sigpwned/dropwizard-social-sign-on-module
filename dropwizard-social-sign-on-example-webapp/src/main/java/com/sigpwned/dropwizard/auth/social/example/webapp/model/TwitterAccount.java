@@ -23,6 +23,7 @@ import java.security.Principal;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import twitter4j.User;
 
 /**
@@ -48,6 +49,7 @@ public class TwitterAccount implements Principal {
   @JsonProperty
   private final String name;
 
+  @Generated
   public TwitterAccount(long id, String screenName, String name) {
     this.id = id;
     this.screenName = screenName;
@@ -57,6 +59,7 @@ public class TwitterAccount implements Principal {
   /**
    * @return the id
    */
+  @Generated
   public long getId() {
     return id;
   }
@@ -64,6 +67,7 @@ public class TwitterAccount implements Principal {
   /**
    * @return the screenName
    */
+  @Generated
   public String getScreenName() {
     return screenName;
   }
@@ -72,16 +76,19 @@ public class TwitterAccount implements Principal {
    * @return the name
    */
   @Override
+  @Generated
   public String getName() {
     return name;
   }
 
   @Override
+  @Generated
   public int hashCode() {
     return Objects.hash(id, name, screenName);
   }
 
   @Override
+  @Generated
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
@@ -95,6 +102,7 @@ public class TwitterAccount implements Principal {
   }
 
   @Override
+  @Generated
   public String toString() {
     return "TwitterAccount [id=" + id + ", screenName=" + screenName + ", name=" + name + "]";
   }

@@ -27,6 +27,7 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.Authorizer;
@@ -151,6 +152,7 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
     /**
      * @return the method
      */
+    @Generated
     public String getMethod() {
       return method;
     }
@@ -158,6 +160,7 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
     /**
      * @return the credentials
      */
+    @Generated
     public String getCredentials() {
       return credentials;
     }

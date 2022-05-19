@@ -22,6 +22,7 @@ package com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
 public class TwitterOAuth1Configuration {
   @NotNull
@@ -37,6 +38,7 @@ public class TwitterOAuth1Configuration {
   /**
    * @return the consumerKey
    */
+  @Generated
   public String getConsumerKey() {
     return consumerKey;
   }
@@ -44,6 +46,7 @@ public class TwitterOAuth1Configuration {
   /**
    * @param consumerKey the consumerKey to set
    */
+  @Generated
   public void setConsumerKey(String consumerKey) {
     this.consumerKey = consumerKey;
   }
@@ -51,6 +54,7 @@ public class TwitterOAuth1Configuration {
   /**
    * @return the consumerSecret
    */
+  @Generated
   public String getConsumerSecret() {
     return consumerSecret;
   }
@@ -58,6 +62,7 @@ public class TwitterOAuth1Configuration {
   /**
    * @param consumerSecret the consumerSecret to set
    */
+  @Generated
   public void setConsumerSecret(String consumerSecret) {
     this.consumerSecret = consumerSecret;
   }

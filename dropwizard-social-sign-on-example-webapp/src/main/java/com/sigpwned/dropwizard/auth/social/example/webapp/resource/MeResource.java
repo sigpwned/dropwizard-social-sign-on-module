@@ -27,6 +27,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.linting.VisibleForTesting;
 
 /**
@@ -50,6 +51,7 @@ public class MeResource {
   /**
    * @return the context
    */
+  @Generated
   private SecurityContext getContext() {
     return context;
   }

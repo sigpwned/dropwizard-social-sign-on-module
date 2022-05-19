@@ -20,6 +20,7 @@
 package com.sigpwned.dropwizard.auth.social.example.webapp.model;
 
 import java.util.Objects;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
 /**
  * Models a Twitter OAuth 1.0a access token with its owning user's ID
@@ -34,6 +35,7 @@ public class TwitterOAuth1AccessToken {
   private final String accessToken;
   private final String accessTokenSecret;
 
+  @Generated
   public TwitterOAuth1AccessToken(long userId, String accessToken, String accessTokenSecret) {
     this.userId = userId;
     this.accessToken = accessToken;
@@ -43,6 +45,7 @@ public class TwitterOAuth1AccessToken {
   /**
    * @return the userId
    */
+  @Generated
   public long getUserId() {
     return userId;
   }
@@ -50,6 +53,7 @@ public class TwitterOAuth1AccessToken {
   /**
    * @return the accessToken
    */
+  @Generated
   public String getAccessToken() {
     return accessToken;
   }
@@ -57,16 +61,19 @@ public class TwitterOAuth1AccessToken {
   /**
    * @return the accessTokenSecret
    */
+  @Generated
   public String getAccessTokenSecret() {
     return accessTokenSecret;
   }
 
   @Override
+  @Generated
   public int hashCode() {
     return Objects.hash(accessToken, accessTokenSecret, userId);
   }
 
   @Override
+  @Generated
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
@@ -80,6 +87,7 @@ public class TwitterOAuth1AccessToken {
   }
 
   @Override
+  @Generated
   public String toString() {
     return "TwitterAccessToken [userId=" + userId + ", accessToken=" + accessToken
         + ", accessTokenSecret=" + accessTokenSecret + "]";

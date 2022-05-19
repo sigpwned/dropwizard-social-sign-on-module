@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 
 public class SocialAuthConfiguration {
@@ -52,6 +53,7 @@ public class SocialAuthConfiguration {
   /**
    * @return the twitter1
    */
+  @Generated
   public TwitterOAuth1Configuration getTwitter1() {
     return twitter1;
   }
@@ -59,6 +61,7 @@ public class SocialAuthConfiguration {
   /**
    * @param twitter1 the twitter1 to set
    */
+  @Generated
   public void setTwitterOAuth1(TwitterOAuth1Configuration twitter1) {
     this.twitter1 = twitter1;
   }
@@ -66,6 +69,7 @@ public class SocialAuthConfiguration {
   /**
    * @return the tokenStore
    */
+  @Generated
   @JsonProperty("oauthTokenStore")
   public OAuthTokenStoreFactory getOAuthTokenStore() {
     return oauthTokenStore;
@@ -74,6 +78,7 @@ public class SocialAuthConfiguration {
   /**
    * @param tokenStore the tokenStore to set
    */
+  @Generated
   @JsonProperty("oauthTokenStore")
   public void setOAuthTokenStore(OAuthTokenStoreFactory oauthTokenStore) {
     this.oauthTokenStore = oauthTokenStore;
@@ -82,6 +87,7 @@ public class SocialAuthConfiguration {
   /**
    * @return the baseUrl
    */
+  @Generated
   public String getBaseUrl() {
     return baseUrl;
   }
@@ -89,6 +95,7 @@ public class SocialAuthConfiguration {
   /**
    * @param baseUrl the baseUrl to set
    */
+  @Generated
   public void setBaseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
   }

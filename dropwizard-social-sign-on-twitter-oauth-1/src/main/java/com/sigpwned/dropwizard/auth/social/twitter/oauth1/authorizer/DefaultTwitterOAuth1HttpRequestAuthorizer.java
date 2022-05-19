@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1HttpRequestAuthorizer;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1HttpRequestSigner;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.signer.HmacSha1TwitterOAuth1HttpRequestSigner;
@@ -62,6 +63,7 @@ public class DefaultTwitterOAuth1HttpRequestAuthorizer
   /**
    * @return the signer
    */
+  @Generated
   public TwitterOAuth1HttpRequestSigner getSigner() {
     return signer;
   }
@@ -69,6 +71,7 @@ public class DefaultTwitterOAuth1HttpRequestAuthorizer
   /**
    * @return the oAuthVersion
    */
+  @Generated
   public String getOAuthVersion() {
     return oauthVersion;
   }

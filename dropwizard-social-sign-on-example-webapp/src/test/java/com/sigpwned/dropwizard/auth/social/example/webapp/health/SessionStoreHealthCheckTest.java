@@ -19,38 +19,38 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.health;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import java.util.Optional;
+import org.junit.Test;
 import com.codahale.metrics.health.HealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
-import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
-/**
- * You should always make sure your external dependencies are healthy.
- */
-public class SessionStoreHealthCheck extends HealthCheck {
-  public static final String NAME = "SessionStore";
+public class SessionStoreHealthCheckTest {
+  @Test
+  public void shouldBeHealthyIfNoException() throws Exception {
+    SessionStore store = mock(SessionStore.class);
+    when(store.getSession(any(String.class))).thenReturn(Optional.empty());
 
-  private final SessionStore sessionStore;
+    SessionStoreHealthCheck unit = new SessionStoreHealthCheck(store);
 
-  public SessionStoreHealthCheck(SessionStore sessionStore) {
-    this.sessionStore = sessionStore;
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(true));
   }
 
-  @Override
-  protected Result check() throws Exception {
-    try {
-      // We don't care if we get a hit, only that we don't get an exception.
-      getSessionStore().getSession("example");
-      return Result.healthy();
-    } catch (Exception e) {
-      return Result.unhealthy(e);
-    }
-  }
+  @Test
+  public void shouldBeUnhealthyIfException() throws Exception {
+    SessionStore store = mock(SessionStore.class);
+    when(store.getSession(any(String.class))).thenThrow(new RuntimeException("simulated failure"));
 
-  /**
-   * @return the accessTokenStore
-   */
-  @Generated
-  private SessionStore getSessionStore() {
-    return sessionStore;
+    SessionStoreHealthCheck unit = new SessionStoreHealthCheck(store);
+
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(false));
   }
 }

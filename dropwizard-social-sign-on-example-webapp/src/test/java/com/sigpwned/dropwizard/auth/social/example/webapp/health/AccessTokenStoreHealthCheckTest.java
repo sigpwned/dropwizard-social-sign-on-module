@@ -19,38 +19,39 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.health;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import java.util.Optional;
+import org.junit.Test;
 import com.codahale.metrics.health.HealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.AccessTokenStore;
-import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
-/**
- * You should always make sure your external dependencies are healthy.
- */
-public class AccessTokenStoreHealthCheck extends HealthCheck {
-  public static final String NAME = "AccessTokenStore";
+public class AccessTokenStoreHealthCheckTest {
+  @Test
+  public void shouldBeHealthyIfNoException() throws Exception {
+    AccessTokenStore store = mock(AccessTokenStore.class);
+    when(store.getTwitterOAuth1AccessTokenSecret(any(String.class))).thenReturn(Optional.empty());
 
-  private final AccessTokenStore accessTokenStore;
+    AccessTokenStoreHealthCheck unit = new AccessTokenStoreHealthCheck(store);
 
-  public AccessTokenStoreHealthCheck(AccessTokenStore accessTokenStore) {
-    this.accessTokenStore = accessTokenStore;
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(true));
   }
 
-  @Override
-  protected Result check() throws Exception {
-    try {
-      // We don't care if the credentials work, only that we don't get an exception.
-      getAccessTokenStore().getTwitterOAuth1AccessTokenSecret("example");
-      return Result.healthy();
-    } catch (Exception e) {
-      return Result.unhealthy(e);
-    }
-  }
+  @Test
+  public void shouldBeUnhealthyIfException() throws Exception {
+    AccessTokenStore store = mock(AccessTokenStore.class);
+    when(store.getTwitterOAuth1AccessTokenSecret(any(String.class)))
+        .thenThrow(new RuntimeException("simulated failure"));
 
-  /**
-   * @return the accessTokenStore
-   */
-  @Generated
-  private AccessTokenStore getAccessTokenStore() {
-    return accessTokenStore;
+    AccessTokenStoreHealthCheck unit = new AccessTokenStoreHealthCheck(store);
+
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(false));
   }
 }

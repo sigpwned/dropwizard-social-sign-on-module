@@ -23,6 +23,7 @@ import java.util.Optional;
 import javax.inject.Inject;
 import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 
@@ -34,6 +35,7 @@ public class ExampleAuthenticator implements Authenticator<String, TwitterAccoun
   private final SessionStore store;
 
   @Inject
+  @Generated
   public ExampleAuthenticator(SessionStore store) {
     this.store = store;
   }
@@ -56,6 +58,7 @@ public class ExampleAuthenticator implements Authenticator<String, TwitterAccoun
   /**
    * @return the store
    */
+  @Generated
   private SessionStore getStore() {
     return store;
   }

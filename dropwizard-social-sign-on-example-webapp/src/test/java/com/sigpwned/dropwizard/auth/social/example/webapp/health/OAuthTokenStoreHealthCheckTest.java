@@ -19,38 +19,39 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.health;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import java.util.Optional;
+import org.junit.Test;
 import com.codahale.metrics.health.HealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.OAuthTokenStore;
-import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
-/**
- * You should always make sure your external dependencies are healthy.
- */
-public class OAuthTokenStoreHealthCheck extends HealthCheck {
-  public static final String NAME = "OAuthTokenStore";
+public class OAuthTokenStoreHealthCheckTest {
+  @Test
+  public void shouldBeHealthyIfNoException() throws Exception {
+    OAuthTokenStore store = mock(OAuthTokenStore.class);
+    when(store.getTwitterOAuth1TokenSecret(any(String.class))).thenReturn(Optional.empty());
 
-  private final OAuthTokenStore oauthTokenStore;
+    OAuthTokenStoreHealthCheck unit = new OAuthTokenStoreHealthCheck(store);
 
-  public OAuthTokenStoreHealthCheck(OAuthTokenStore oauthTokenStore) {
-    this.oauthTokenStore = oauthTokenStore;
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(true));
   }
 
-  @Override
-  protected Result check() throws Exception {
-    try {
-      // We don't care if the credentials work, only that we don't get an exception.
-      getOAuthTokenStore().getTwitterOAuth1TokenSecret("example");
-      return Result.healthy();
-    } catch (Exception e) {
-      return Result.unhealthy(e);
-    }
-  }
+  @Test
+  public void shouldBeUnhealthyIfException() throws Exception {
+    OAuthTokenStore store = mock(OAuthTokenStore.class);
+    when(store.getTwitterOAuth1TokenSecret(any(String.class)))
+        .thenThrow(new RuntimeException("simulated failure"));
 
-  /**
-   * @return the accessTokenStore
-   */
-  @Generated
-  private OAuthTokenStore getOAuthTokenStore() {
-    return oauthTokenStore;
+    OAuthTokenStoreHealthCheck unit = new OAuthTokenStoreHealthCheck(store);
+
+    HealthCheck.Result result = unit.check();
+
+    assertThat(result.isHealthy(), is(false));
   }
 }

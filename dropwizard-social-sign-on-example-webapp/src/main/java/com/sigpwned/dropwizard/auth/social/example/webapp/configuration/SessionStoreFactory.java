@@ -24,6 +24,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.store.session.DefaultSessionStore;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 
 /**
  * Our session store is in-memory, so obviously we don't need this. However, this demonstrates how
@@ -49,6 +50,7 @@ public class SessionStoreFactory {
   /**
    * @return the username
    */
+  @Generated
   public String getUsername() {
     return username;
   }
@@ -56,6 +58,7 @@ public class SessionStoreFactory {
   /**
    * @param username the username to set
    */
+  @Generated
   public void setUsername(String username) {
     this.username = username;
   }
@@ -63,6 +66,7 @@ public class SessionStoreFactory {
   /**
    * @return the password
    */
+  @Generated
   public String getPassword() {
     return password;
   }
@@ -70,6 +74,7 @@ public class SessionStoreFactory {
   /**
    * @param password the password to set
    */
+  @Generated
   public void setPassword(String password) {
     this.password = password;
   }

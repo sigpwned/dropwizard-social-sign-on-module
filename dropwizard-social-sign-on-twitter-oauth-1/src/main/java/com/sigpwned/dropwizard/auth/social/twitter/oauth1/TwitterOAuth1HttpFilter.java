@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.linting.VisibleForTesting;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.authorizer.DefaultTwitterOAuth1HttpRequestAuthorizer;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
@@ -313,6 +314,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
     return ModelHttpUrl.fromString(getCallbackUrl()).getPath();
   }
 
+  @Generated
   public String getBaseUrl() {
     return baseUrl;
   }
@@ -320,6 +322,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the store
    */
+  @Generated
   public TwitterOAuth1TokenStore getStore() {
     return store;
   }
@@ -327,6 +330,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the handler
    */
+  @Generated
   public TwitterOAuth1AuthenticatedHandler getHandler() {
     return handler;
   }
@@ -334,6 +338,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the consumerKey
    */
+  @Generated
   public String getConsumerKey() {
     return consumerKey;
   }
@@ -341,6 +346,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the consumerSecret
    */
+  @Generated
   public String getConsumerSecret() {
     return consumerSecret;
   }
@@ -348,6 +354,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the authorizer
    */
+  @Generated
   public TwitterOAuth1HttpRequestAuthorizer getAuthorizer() {
     return authorizer;
   }
@@ -355,6 +362,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the twitterRequestTokenUrl
    */
+  @Generated
   public String getTwitterRequestTokenUrl() {
     return twitterRequestTokenUrl;
   }
@@ -362,6 +370,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the twitterAuthenticateUrl
    */
+  @Generated
   public String getTwitterAuthenticateUrl() {
     return twitterAuthenticateUrl;
   }
@@ -369,6 +378,7 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
   /**
    * @return the twitterAccessTokenUrl
    */
+  @Generated
   public String getTwitterAccessTokenUrl() {
     return twitterAccessTokenUrl;
   }

@@ -42,6 +42,7 @@ public class Parameter implements Comparable<Parameter> {
   private final String key;
   private final String value;
 
+  @Generated
   public Parameter(String key, String value) {
     this.key = key;
     this.value = value;
@@ -50,6 +51,7 @@ public class Parameter implements Comparable<Parameter> {
   /**
    * @return the key
    */
+  @Generated
   public String getKey() {
     return key;
   }
@@ -57,6 +59,7 @@ public class Parameter implements Comparable<Parameter> {
   /**
    * @return the value
    */
+  @Generated
   public String getValue() {
     return value;
   }

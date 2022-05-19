@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.AccessTokenStoreFactory;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SessionStoreFactory;
 import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SocialAuthConfiguration;
+import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1BundleConfiguration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 import io.dropwizard.core.Configuration;
@@ -42,6 +43,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @return the socialAuth
    */
+  @Generated
   public SocialAuthConfiguration getSocialAuth() {
     return socialAuth;
   }
@@ -49,6 +51,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @param socialAuth the socialAuth to set
    */
+  @Generated
   public void setSocialAuth(SocialAuthConfiguration socialAuth) {
     this.socialAuth = socialAuth;
   }
@@ -56,6 +59,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @return the accessTokenStore
    */
+  @Generated
   public AccessTokenStoreFactory getAccessTokenStore() {
     return accessTokenStore;
   }
@@ -63,6 +67,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @param accessTokenStore the accessTokenStore to set
    */
+  @Generated
   public void setAccessTokenStore(AccessTokenStoreFactory accessTokenStore) {
     this.accessTokenStore = accessTokenStore;
   }
@@ -70,6 +75,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @return the sessionStore
    */
+  @Generated
   public SessionStoreFactory getSessionStore() {
     return sessionStore;
   }
@@ -77,6 +83,7 @@ public class ExampleConfiguration extends Configuration
   /**
    * @param sessionStore the sessionStore to set
    */
+  @Generated
   public void setSessionStore(SessionStoreFactory sessionStore) {
     this.sessionStore = sessionStore;
   }
