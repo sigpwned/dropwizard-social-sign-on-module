@@ -1,6 +1,6 @@
 # DROPWIZARD SOCIAL SIGN ON EXAMPLE WEBAPP
 
-This module contains an [SSCCE](http://sscce.org/) example webapp that supports social sign on using the Twitter OAuth 1.0a flow. The following examples demonstrate the features provided by the dropwizard-social-sign-on-twitter-oauth-1 bundle and framework code in the example.
+This module contains an [SSCCE](http://sscce.org/) example webapp that supports social sign on using the Twitter OAuth 1.0a flow. The following examples demonstrate the features provided by [the dropwizard-social-sign-on-twitter-oauth-1 bundle](https://github.com/sigpwned/dropwizard-social-sign-on-module/tree/main/dropwizard-social-sign-on-twitter-oauth-1) and framework code in the example.
 
 ## Running the webapp
 
