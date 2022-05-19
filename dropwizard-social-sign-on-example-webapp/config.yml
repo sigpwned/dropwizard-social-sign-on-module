@@ -1,0 +1,17 @@
+server:
+  type: default
+  adminContextPath: /
+  applicationContextPath: /
+  rootPath: /v1
+  
+socialAuth:
+  twitterOAuth1:
+    consumerKey: ${TWITTER_OAUTH1_CONSUMER_KEY:-1234}
+    consumerSecret: ${TWITTER_OAUTH1_CONSUMER_SECRET:-5678}
+  oauthTokenStore:
+    username: administrator
+    password: "S00perS3cret!"
+    
+accessTokenStore:
+  username: administrator
+  password: "P4ssw0rd?"

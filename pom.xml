@@ -178,8 +178,8 @@
     </dependencyManagement>
 
     <modules>
-        <module>dropwizard-social-sign-on-core</module>
-        <module>dropwizard-social-sign-on-twitter-1</module>
+        <module>dropwizard-social-sign-on</module>
+        <module>dropwizard-social-sign-on-example-webapp</module>
     </modules>
 
     <!-- For releasing to maven central -->
