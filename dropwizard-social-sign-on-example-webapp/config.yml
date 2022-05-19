@@ -5,6 +5,7 @@ server:
   rootPath: /v1
   
 socialAuth:
+  baseUrl: http://localhost:8080
   twitterOAuth1:
     consumerKey: ${TWITTER_OAUTH1_CONSUMER_KEY:-1234}
     consumerSecret: ${TWITTER_OAUTH1_CONSUMER_SECRET:-5678}

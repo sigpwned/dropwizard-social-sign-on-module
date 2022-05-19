@@ -48,6 +48,16 @@ Individual OAuth flows are packaged as standalone Dropwizard bundles. To add soc
             // pcookie, and redirect the user back to the webapp.
             return new MyTwitterOAuth1AuthenticatedHandler(configuration);
           }
+
+          /**
+           * This gives the base URL used to generate OAuth callback URLs. Don't forget to register your
+           * callback URLs on the networks you're authenticating to! You can use HTTP or HTTPS links
+           * here, but obviously HTTPS is preferred. Obviously, you should use your actual domain here!
+           */
+          @Override
+          protected String getBaseUrl(ExampleConfiguration configuration) {
+            return "https://www.example.com";
+          }
         });
       }
 

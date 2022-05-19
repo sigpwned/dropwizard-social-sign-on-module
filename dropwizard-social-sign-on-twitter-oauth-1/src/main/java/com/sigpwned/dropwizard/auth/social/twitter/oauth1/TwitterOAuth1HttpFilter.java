@@ -34,6 +34,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.sigpwned.dropwizard.auth.social.linting.VisibleForTesting;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.authorizer.DefaultTwitterOAuth1HttpRequestAuthorizer;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import com.sigpwned.dropwizard.auth.social.util.OAuth1;
@@ -54,22 +57,42 @@ import com.sigpwned.httpmodel.util.ModelHttpStatusCodes;
 import com.sigpwned.httpmodel.util.ModelHttpVersions;
 
 public class TwitterOAuth1HttpFilter extends HttpFilter {
+  private static final Logger LOGGER = LoggerFactory.getLogger(TwitterOAuth1HttpFilter.class);
+
   private static final long serialVersionUID = -4818000499514852808L;
 
-  /* default */ static final String DEFAULT_TWITTER_REQUEST_TOKEN_URL =
+  /**
+   * @see <a href=
+   *      "https://developer.twitter.com/en/docs/authentication/api-reference/request_token">https://developer.twitter.com/en/docs/authentication/api-reference/request_token</a>
+   */
+  @VisibleForTesting
+  static final String DEFAULT_TWITTER_REQUEST_TOKEN_URL =
       "https://api.twitter.com/oauth/request_token";
 
-  /* default */ static final String DEFAULT_TWITTER_AUTHENTICATE_URL =
+  /**
+   * @see <a href=
+   *      "https://developer.twitter.com/en/docs/authentication/api-reference/authenticate">https://developer.twitter.com/en/docs/authentication/api-reference/authenticate</a>
+   */
+  @VisibleForTesting
+  static final String DEFAULT_TWITTER_AUTHENTICATE_URL =
       "https://api.twitter.com/oauth/authenticate";
 
-  /* default */ static final String DEFAULT_TWITTER_ACCESS_TOKEN_URL =
+  /**
+   * @see <a href=
+   *      "https://developer.twitter.com/en/docs/authentication/api-reference/access_token">https://developer.twitter.com/en/docs/authentication/api-reference/access_token</a>
+   */
+  @VisibleForTesting
+  static final String DEFAULT_TWITTER_ACCESS_TOKEN_URL =
       "https://api.twitter.com/oauth/access_token";
 
-  /* default */ static final String BASE_PATH = "oauth/twitter/1";
+  @VisibleForTesting
+  static final String BASE_PATH = "oauth/twitter/1";
 
-  /* default */ static final String AUTHENTICATE = "authenticate";
+  @VisibleForTesting
+  static final String AUTHENTICATE = "authenticate";
 
-  /* default */ static final String CALLBACK = "callback";
+  @VisibleForTesting
+  static final String CALLBACK = "callback";
 
   private final String baseUrl;
   private final String consumerKey;
@@ -147,6 +170,9 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
       throw new InterruptedIOException();
     }
     if (requestTokenResponse.statusCode() != HttpURLConnection.HTTP_OK) {
+      if (LOGGER.isErrorEnabled())
+        LOGGER.error("Token Request request failed; callback={}, status={}, body={}",
+            getCallbackUrl(), requestTokenResponse.statusCode(), requestTokenResponse.body());
       return ModelHttpResponse.of(ModelHttpStatusCodes.INTERNAL_ERROR, ModelHttpEntity
           .of(ModelHttpMediaTypes.TEXT_PLAIN, "Downstream authentication request failed"));
     }
@@ -233,6 +259,9 @@ public class TwitterOAuth1HttpFilter extends HttpFilter {
       throw new InterruptedIOException();
     }
     if (response.statusCode() != HttpURLConnection.HTTP_OK) {
+      if (LOGGER.isErrorEnabled())
+        LOGGER.error("Access Token request failed; status={}, message={}", response.statusCode(),
+            response.body());
       return ModelHttpResponse.of(ModelHttpStatusCodes.INTERNAL_ERROR, ModelHttpEntity
           .of(ModelHttpMediaTypes.TEXT_PLAIN, "Downstream authentication request failed"));
     }

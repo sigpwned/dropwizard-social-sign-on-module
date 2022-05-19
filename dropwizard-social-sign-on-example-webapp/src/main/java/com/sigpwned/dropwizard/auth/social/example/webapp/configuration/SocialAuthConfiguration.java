@@ -20,6 +20,8 @@
 package com.sigpwned.dropwizard.auth.social.example.webapp.configuration;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 
@@ -30,6 +32,22 @@ public class SocialAuthConfiguration {
   @Valid
   @JsonProperty("oauthTokenStore")
   private OAuthTokenStoreFactory oauthTokenStore;
+
+
+  /**
+   * The base URL of the application to use. It must be a full absolute URL that does not end with a
+   * slash. This is used to generate OAuth callback URLs. In general, if your domain is hosted on
+   * www.example.com, then you should just use "https://www.example.com", which would map your
+   * callback URLs to, e.g., "https://www.example.com/oauth/twitter/1/callback". However, if you
+   * want to use a different prefix, you can add it to the end of this value. For example,
+   * "https://www.example.com/prefix/goes/here" would change the callback URL to
+   * "https://www.example.com/prefix/goes/here/oauth/twitter/1/callback".
+   * 
+   * Example: http://www.example.com
+   */
+  @NotNull
+  @Pattern(regexp = "^https?://[-a-zA-Z0-9.]+(?:/[^/]+)*")
+  private String baseUrl;
 
   /**
    * @return the twitter1
@@ -59,5 +77,19 @@ public class SocialAuthConfiguration {
   @JsonProperty("oauthTokenStore")
   public void setOAuthTokenStore(OAuthTokenStoreFactory oauthTokenStore) {
     this.oauthTokenStore = oauthTokenStore;
+  }
+
+  /**
+   * @return the baseUrl
+   */
+  public String getBaseUrl() {
+    return baseUrl;
+  }
+
+  /**
+   * @param baseUrl the baseUrl to set
+   */
+  public void setBaseUrl(String baseUrl) {
+    this.baseUrl = baseUrl;
   }
 }

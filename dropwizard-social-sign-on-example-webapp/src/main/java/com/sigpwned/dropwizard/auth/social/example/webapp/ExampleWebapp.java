@@ -133,6 +133,15 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
           }
         };
       }
+
+      /**
+       * This gives the base URL used to generate OAuth callback URLs. Don't forget to register your
+       * callback URLs on the networks you're authenticating to!
+       */
+      @Override
+      protected String getBaseUrl(ExampleConfiguration configuration) {
+        return configuration.getSocialAuth().getBaseUrl();
+      }
     });
   }
 

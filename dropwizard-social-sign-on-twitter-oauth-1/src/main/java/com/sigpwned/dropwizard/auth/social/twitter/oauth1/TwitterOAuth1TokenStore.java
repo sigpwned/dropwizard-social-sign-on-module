@@ -25,8 +25,8 @@ import java.util.Optional;
 /**
  * Stores and retrieves OAuth tokens secrets during the flow process. These are part of the OAuth
  * flow and are different from access tokens themselves. A standalone webserver could use an
- * in-memory store, but a horizontally-scaled webserver would need to store these in some shared
- * data store. Records should be stored for at least an hour, but do not need to be stored forever.
+ * in-memory store, but most applications should use a shared data store, like a database or
+ * memcache/redis. Records only need to be stored for at most an hour.
  */
 public interface TwitterOAuth1TokenStore {
   public void putTwitterOAuth1TokenSecret(String token, String tokenSecret) throws IOException;

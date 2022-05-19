@@ -25,7 +25,7 @@ import com.sigpwned.httpmodel.ModelHttpResponse;
 /**
  * Receives fresh access tokens and returns the HTTP response to send to the newly-authenticated
  * user. A reasonable implementation might store the tokens in a persistent data store and then
- * return a redirect to the main web application.
+ * return a reasonable HTTP response for the user, e.g., a redirect with a set-cookie header.
  */
 @FunctionalInterface
 public interface TwitterOAuth1AuthenticatedHandler {

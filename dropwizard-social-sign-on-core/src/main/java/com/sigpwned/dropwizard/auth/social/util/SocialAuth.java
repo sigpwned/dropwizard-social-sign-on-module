@@ -1,6 +1,6 @@
 /*-
  * =================================LICENSE_START==================================
- * dropwizard-social-sign-on
+ * dropwizard-social-sign-on-core
  * ====================================SECTION=====================================
  * Copyright (C) 2022 Andy Boothe
  * ====================================SECTION=====================================
@@ -21,8 +21,6 @@ package com.sigpwned.dropwizard.auth.social.util;
 
 public final class SocialAuth {
   private SocialAuth() {}
-
-  public static final String DEFAULT_BASE_URL = "http://localhost:8080";
 
   public static final String BASE_URL_NAMED = "socialAuthBaseUrl";
 }
