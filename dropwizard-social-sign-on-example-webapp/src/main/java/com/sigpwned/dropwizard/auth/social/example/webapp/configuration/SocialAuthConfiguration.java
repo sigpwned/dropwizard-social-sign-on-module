@@ -47,7 +47,7 @@ public class SocialAuthConfiguration {
    * Example: http://www.example.com
    */
   @NotNull
-  @Pattern(regexp = "^https?://[-a-zA-Z0-9.]+(?:/[^/]+)*")
+  @Pattern(regexp = "^https?://[-a-zA-Z0-9.]+(?:[:]\\d+)?(?:/[^/]+)*")
   private String baseUrl;
 
   /**
