@@ -21,5 +21,8 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1TokenStore;
 
+/**
+ * The general token store used to store Twitter OAuth 1.0 tokens (and any others that come along).
+ */
 public interface OAuthTokenStore extends TwitterOAuth1TokenStore {
 }

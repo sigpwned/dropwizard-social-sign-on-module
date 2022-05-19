@@ -34,7 +34,7 @@ import io.dropwizard.auth.UnauthorizedHandler;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 
 /**
- * This class uses the realm as the issuer.
+ * Uses access tokens as credentials
  */
 public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<String, P> {
   private static final Logger LOGGER = LoggerFactory.getLogger(AccessTokenAuthFilter.class);
@@ -169,14 +169,14 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
   }
 
   /**
-   * An optional query parameter to pass the JWT.
+   * An optional query parameter to pass the token.
    * 
    * @see #DEFAULT_QUERY_PARAMETER_NAME
    */
   private final String queryParameterName;
 
   /**
-   * An optional cookie parameter to pass the JWT.
+   * An optional cookie parameter to pass the token.
    * 
    * @see #DEFAULT_COOKIE_PARAMETER_NAME
    */
@@ -195,18 +195,18 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
   public void filter(ContainerRequestContext requestContext) throws IOException {
     String credentials;
 
-    // Try to read a JWT from the query parameter first, if we have one
+    // Try to read a token from the query parameter first, if we have one
     credentials = Optional
         .ofNullable(requestContext.getUriInfo().getQueryParameters().getFirst(queryParameterName))
         .orElse(null);
 
-    // Try to read a JWT from the cookie parameter next, if we have one
+    // Try to read a token from the cookie parameter next, if we have one
     if (credentials == null && cookieParameterName != null) {
       credentials = Optional.ofNullable(requestContext.getCookies().get(cookieParameterName))
           .map(Cookie::getValue).orElse(null);
     }
 
-    // Try to read a JWT from the authentication header last, if we have one
+    // Try to read a token from the authentication header last, if we have one
     if (credentials == null) {
       try {
         credentials = Optional.ofNullable(requestContext.getHeaderString(HttpHeaders.AUTHORIZATION))

@@ -28,6 +28,7 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthentica
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthorizer;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.AccessTokenStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.OAuthTokenStoreHealthCheck;
+import com.sigpwned.dropwizard.auth.social.example.webapp.health.SessionStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import com.sigpwned.dropwizard.auth.social.example.webapp.resource.MeResource;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1AuthenticatedHandler;
@@ -48,8 +49,10 @@ import twitter4j.User;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
- * This web application uses JWTs as a stateless session ID for a user-facing SPA. (If we use our
- * imaginations.)
+ * This is an example Dropwizard webapp implementation using the social sign on module. It only
+ * registers the Twitter OAuth 1.0a module, but it should be clear how to use other bundles based on
+ * this sample. If you just need to generate Twitter OAuth 1.0a access tokens for your application,
+ * then you can use this out of the box.
  */
 public class ExampleWebapp extends Application<ExampleConfiguration> {
   public static void main(String[] args) throws Exception {
@@ -100,7 +103,7 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
           @Override
           public ModelHttpResponse twitterOAuth1Authenticated(String accessToken,
               String accessTokenSecret) throws IOException {
-            // Look up our Twitter user
+            // Look up our Twitter user. We want to know who just authenticated our stuff!
             User user;
             try {
               user = new TwitterFactory(new ConfigurationBuilder().setOAuthConsumerKey(consumerKey)
@@ -111,7 +114,8 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
               throw new InternalServerErrorException("Failed to verify new Twitter credentials", e);
             }
 
-            // Create a session for our user using their access token
+            // Create a session for our user using their access token. In a real application, you
+            // might use stateless JWTs or a proper session store.
             sessionStore.putSession(accessToken, TwitterAccount.fromUser(user));
 
             // Store our access token secret for later. We don't do anything else with it, but
@@ -157,8 +161,8 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
             .setAuthenticator(new ExampleAuthenticator(sessionStore))
             .setAuthorizer(new ExampleAuthorizer()).buildAuthFilter()));
 
-    // Our application's resources are simple: you can ask who you are. The OAuth resources are
-    // automatically registered by the bundle.
+    // Our application's resources are simple: you can ask who you are. The Twitter OAuth resources
+    // are automatically registered by the bundle.
     environment.jersey().register(MeResource.class);
 
     // Make sure our account store is healthy
@@ -166,5 +170,7 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
         new AccessTokenStoreHealthCheck(accessTokenStore));
     environment.healthChecks().register(OAuthTokenStoreHealthCheck.NAME,
         new OAuthTokenStoreHealthCheck(oauthTokenStore));
+    environment.healthChecks().register(SessionStoreHealthCheck.NAME,
+        new SessionStoreHealthCheck(sessionStore));
   }
 }

@@ -26,7 +26,7 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
  * You should always make sure your external dependencies are healthy.
  */
 public class SessionStoreHealthCheck extends HealthCheck {
-  public static final String NAME = "AccessTokenStore";
+  public static final String NAME = "SessionStore";
 
   private final SessionStore sessionStore;
 

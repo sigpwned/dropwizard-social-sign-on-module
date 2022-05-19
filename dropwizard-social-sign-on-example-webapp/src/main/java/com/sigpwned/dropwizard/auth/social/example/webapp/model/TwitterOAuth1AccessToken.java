@@ -21,8 +21,12 @@ package com.sigpwned.dropwizard.auth.social.example.webapp.model;
 
 import java.util.Objects;
 
+/**
+ * Models a Twitter OAuth 1.0a access token with its owning user's ID
+ */
 public class TwitterOAuth1AccessToken {
-  public static TwitterOAuth1AccessToken of(long userId, String accessToken, String accessTokenSecret) {
+  public static TwitterOAuth1AccessToken of(long userId, String accessToken,
+      String accessTokenSecret) {
     return new TwitterOAuth1AccessToken(userId, accessToken, accessTokenSecret);
   }
 

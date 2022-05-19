@@ -22,6 +22,9 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 import java.util.Optional;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 
+/**
+ * Stores sessions by ID
+ */
 public interface SessionStore {
   public void putSession(String token, TwitterAccount session);
 

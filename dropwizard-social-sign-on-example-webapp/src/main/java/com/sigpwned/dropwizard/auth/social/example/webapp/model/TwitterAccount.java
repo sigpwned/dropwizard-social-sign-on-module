@@ -25,6 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import twitter4j.User;
 
+/**
+ * This is our application user model object
+ */
 public class TwitterAccount implements Principal {
   public static TwitterAccount fromUser(User u) {
     return of(u.getId(), u.getScreenName(), u.getName());

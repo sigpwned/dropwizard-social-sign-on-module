@@ -31,7 +31,8 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 
 /**
  * A simple example endpoint that returns the current user. Note that the class is annotated with
- * {@link PermitAll}, which requires all calls to this endpoint to include credentials.
+ * {@link PermitAll}, which requires all calls to this endpoint to include credentials. The user is
+ * authenticated using the OAuth 1.0 flow.
  */
 @PermitAll
 @Path("/me")
