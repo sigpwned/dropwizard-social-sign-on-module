@@ -1,4 +1,4 @@
-# DROPWIZARD SOCIAL SIGN ON MODULE
+# DROPWIZARD SOCIAL SIGN ON MODULE [![tests](https://github.com/sigpwned/dropwizard-social-sign-on-module/actions/workflows/tests.yml/badge.svg)](https://github.com/sigpwned/dropwizard-social-sign-on-module/actions/workflows/tests.yml) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sigpwned_dropwizard-social-sign-on-module&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=sigpwned_dropwizard-social-sign-on-module) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sigpwned_dropwizard-social-sign-on-module&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sigpwned_dropwizard-social-sign-on-module) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sigpwned_dropwizard-social-sign-on-module&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=sigpwned_dropwizard-social-sign-on-module) 
 
 dropwizard-social-sign-on-module adds social sign on [OAuth](https://oauth.net/) flows for the most popular social networks to Dropwizard 3+.
 
