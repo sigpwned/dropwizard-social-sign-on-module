@@ -17,7 +17,7 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.example.webapp.health;
+package com.sigpwned.dropwizard.auth.social.twitter.oauth1.health;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,15 +27,15 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import org.junit.Test;
 import com.codahale.metrics.health.HealthCheck;
-import com.sigpwned.dropwizard.auth.social.example.webapp.OAuthTokenStore;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1TokenStore;
 
-public class OAuthTokenStoreHealthCheckTest {
+public class TwitterOAuth1TokenStoreHealthCheckTest {
   @Test
   public void shouldBeHealthyIfNoException() throws Exception {
-    OAuthTokenStore store = mock(OAuthTokenStore.class);
+    TwitterOAuth1TokenStore store = mock(TwitterOAuth1TokenStore.class);
     when(store.getTwitterOAuth1TokenSecret(any(String.class))).thenReturn(Optional.empty());
 
-    OAuthTokenStoreHealthCheck unit = new OAuthTokenStoreHealthCheck(store);
+    TwitterOAuth1TokenStoreHealthCheck unit = new TwitterOAuth1TokenStoreHealthCheck(store);
 
     HealthCheck.Result result = unit.check();
 
@@ -44,11 +44,11 @@ public class OAuthTokenStoreHealthCheckTest {
 
   @Test
   public void shouldBeUnhealthyIfException() throws Exception {
-    OAuthTokenStore store = mock(OAuthTokenStore.class);
+    TwitterOAuth1TokenStore store = mock(TwitterOAuth1TokenStore.class);
     when(store.getTwitterOAuth1TokenSecret(any(String.class)))
         .thenThrow(new RuntimeException("simulated failure"));
 
-    OAuthTokenStoreHealthCheck unit = new OAuthTokenStoreHealthCheck(store);
+    TwitterOAuth1TokenStoreHealthCheck unit = new TwitterOAuth1TokenStoreHealthCheck(store);
 
     HealthCheck.Result result = unit.check();
 

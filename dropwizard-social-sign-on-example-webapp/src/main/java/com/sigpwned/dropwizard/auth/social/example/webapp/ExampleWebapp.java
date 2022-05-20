@@ -26,7 +26,6 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthenticator;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthorizer;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.AccessTokenStoreHealthCheck;
-import com.sigpwned.dropwizard.auth.social.example.webapp.health.OAuthTokenStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.health.SessionStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import com.sigpwned.dropwizard.auth.social.example.webapp.resource.MeResource;
@@ -177,8 +176,6 @@ public class ExampleWebapp extends Application<ExampleConfiguration> {
     // Make sure our account store is healthy
     environment.healthChecks().register(AccessTokenStoreHealthCheck.NAME,
         new AccessTokenStoreHealthCheck(accessTokenStore));
-    environment.healthChecks().register(OAuthTokenStoreHealthCheck.NAME,
-        new OAuthTokenStoreHealthCheck(oauthTokenStore));
     environment.healthChecks().register(SessionStoreHealthCheck.NAME,
         new SessionStoreHealthCheck(sessionStore));
   }

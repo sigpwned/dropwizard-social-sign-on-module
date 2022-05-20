@@ -60,6 +60,7 @@ public class ExampleWebappIT {
     /**
      * @return the body
      */
+    @SuppressWarnings("unused")
     public String getBody() {
       return body;
     }
@@ -67,6 +68,7 @@ public class ExampleWebappIT {
     /**
      * @return the headers
      */
+    @SuppressWarnings("unused")
     public Map<String, String> getHeaders() {
       return headers;
     }

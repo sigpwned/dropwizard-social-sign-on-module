@@ -17,21 +17,21 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package com.sigpwned.dropwizard.auth.social.example.webapp.health;
+package com.sigpwned.dropwizard.auth.social.twitter.oauth1.health;
 
 import com.codahale.metrics.health.HealthCheck;
-import com.sigpwned.dropwizard.auth.social.example.webapp.OAuthTokenStore;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1TokenStore;
 
 /**
  * You should always make sure your external dependencies are healthy.
  */
-public class OAuthTokenStoreHealthCheck extends HealthCheck {
-  public static final String NAME = "OAuthTokenStore";
+public class TwitterOAuth1TokenStoreHealthCheck extends HealthCheck {
+  public static final String NAME = "TwitterOAuth1TokenStoreHealthCheck";
 
-  private final OAuthTokenStore oauthTokenStore;
+  private final TwitterOAuth1TokenStore oauthTokenStore;
 
-  public OAuthTokenStoreHealthCheck(OAuthTokenStore oauthTokenStore) {
+  public TwitterOAuth1TokenStoreHealthCheck(TwitterOAuth1TokenStore oauthTokenStore) {
     this.oauthTokenStore = oauthTokenStore;
   }
 
@@ -50,7 +50,7 @@ public class OAuthTokenStoreHealthCheck extends HealthCheck {
    * @return the accessTokenStore
    */
   @Generated
-  private OAuthTokenStore getOAuthTokenStore() {
+  private TwitterOAuth1TokenStore getOAuthTokenStore() {
     return oauthTokenStore;
   }
 }

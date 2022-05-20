@@ -23,6 +23,7 @@ import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
+import com.sigpwned.dropwizard.auth.social.twitter.oauth1.health.TwitterOAuth1TokenStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import io.dropwizard.core.ConfiguredBundle;
 import io.dropwizard.core.setup.Environment;
@@ -73,6 +74,10 @@ public abstract class TwitterOAuth1Bundle<C extends TwitterOAuth1BundleConfigura
             new TwitterOAuth1HttpFilter(baseUrl, consumerKey, consumerSecret, tokenStore,
                 authenticatedHandler))
         .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
+
+    // Register the health check for our oauth token store
+    environment.healthChecks().register(TwitterOAuth1TokenStoreHealthCheck.NAME,
+        new TwitterOAuth1TokenStoreHealthCheck(tokenStore));
   }
 
   /**
