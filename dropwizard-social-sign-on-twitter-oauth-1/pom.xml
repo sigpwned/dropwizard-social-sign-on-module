@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.sigpwned</groupId>
             <artifactId>httpmodel-servlet</artifactId>
-            <version>0.0.0</version>
+            <version>${httpmodel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sigpwned</groupId>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>4.9.3</version>
+            <version>${mockwebserver.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
