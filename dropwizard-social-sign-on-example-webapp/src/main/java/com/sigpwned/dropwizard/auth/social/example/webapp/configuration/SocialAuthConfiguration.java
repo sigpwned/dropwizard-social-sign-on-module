@@ -76,7 +76,7 @@ public class SocialAuthConfiguration {
   }
 
   /**
-   * @param tokenStore the tokenStore to set
+   * @param oauthTokenStore the tokenStore to set
    */
   @Generated
   @JsonProperty("oauthTokenStore")
