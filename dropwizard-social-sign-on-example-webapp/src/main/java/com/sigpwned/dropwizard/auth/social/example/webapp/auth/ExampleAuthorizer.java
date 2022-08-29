@@ -19,7 +19,6 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.auth;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import io.dropwizard.auth.Authorizer;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -31,7 +30,7 @@ import jakarta.ws.rs.container.ContainerRequestContext;
 public class ExampleAuthorizer implements Authorizer<TwitterAccount> {
   @Override
   public boolean authorize(TwitterAccount principal, String role,
-      @Nullable ContainerRequestContext requestContext) {
+      ContainerRequestContext requestContext) {
     // We have no roles. Everyone can do everything.
     return true;
   }
