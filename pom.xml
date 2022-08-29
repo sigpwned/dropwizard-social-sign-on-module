@@ -3,11 +3,11 @@
 
     <groupId>com.sigpwned</groupId>
     <artifactId>dropwizard-social-sign-on-module</artifactId>
-    <version>2.0.0-b3-SNAPSHOT</version>
+    <version>3.0.0-b3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>dropwizard-social-sign-on-module</name>
     <inceptionYear>2022</inceptionYear>
-    <description>dropwizard-social-sign-on-module adds OAuth social sign-on flows for the most popular social networks to Dropwizard 2.0+</description>
+    <description>dropwizard-social-sign-on-module adds OAuth social sign-on flows for the most popular social networks to Dropwizard 3.0+</description>
     <url>https://github.com/sigpwned/dropwizard-social-sign-on-module</url>
 
     <organization>
@@ -65,7 +65,7 @@
 
         <httpmodel.version>0.0.1</httpmodel.version>
         <twitter4j.version>4.0.7</twitter4j.version>
-        <dropwizard.version>2.0.32</dropwizard.version>
+        <dropwizard.version>3.0.0-beta.2</dropwizard.version>
         <slf4j.version>1.7.36</slf4j.version>
         <mockwebserver.version>4.10.0</mockwebserver.version>
     </properties>

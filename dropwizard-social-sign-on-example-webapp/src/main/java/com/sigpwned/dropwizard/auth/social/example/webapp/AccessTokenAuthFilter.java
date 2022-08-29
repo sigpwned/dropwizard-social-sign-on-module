@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
@@ -248,7 +247,7 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
 
     // See if the application accepts our claims, which may be null. If not, fail as unauthorized.
     if (!authenticate(requestContext, credentials, javax.ws.rs.core.SecurityContext.BASIC_AUTH)) {
-      throw new WebApplicationException(unauthorizedHandler.buildResponse(prefix, realm));
+      throw unauthorizedHandler.buildException(prefix, realm);
     }
   }
 }
