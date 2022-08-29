@@ -27,7 +27,7 @@ import com.sigpwned.dropwizard.auth.social.example.webapp.configuration.SocialAu
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.TwitterOAuth1BundleConfiguration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
-import io.dropwizard.core.Configuration;
+import io.dropwizard.Configuration;
 
 public class ExampleConfiguration extends Configuration
     implements TwitterOAuth1BundleConfiguration {
