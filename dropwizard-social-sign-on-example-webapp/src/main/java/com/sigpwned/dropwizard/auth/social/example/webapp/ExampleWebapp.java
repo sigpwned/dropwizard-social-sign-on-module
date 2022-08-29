@@ -21,7 +21,6 @@ package com.sigpwned.dropwizard.auth.social.example.webapp;
 
 import java.io.IOException;
 import java.util.Optional;
-import javax.ws.rs.InternalServerErrorException;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthenticator;
 import com.sigpwned.dropwizard.auth.social.example.webapp.auth.ExampleAuthorizer;
@@ -42,6 +41,7 @@ import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import jakarta.ws.rs.InternalServerErrorException;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;

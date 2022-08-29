@@ -20,13 +20,13 @@
 package com.sigpwned.dropwizard.auth.social.twitter.oauth1;
 
 import java.util.EnumSet;
-import javax.servlet.DispatcherType;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration.TwitterOAuth1Configuration;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.health.TwitterOAuth1TokenStoreHealthCheck;
 import com.sigpwned.dropwizard.auth.social.twitter.oauth1.util.TwitterOAuth1;
 import io.dropwizard.core.ConfiguredBundle;
 import io.dropwizard.core.setup.Environment;
+import jakarta.servlet.DispatcherType;
 
 public abstract class TwitterOAuth1Bundle<C extends TwitterOAuth1BundleConfiguration>
     implements ConfiguredBundle<C> {

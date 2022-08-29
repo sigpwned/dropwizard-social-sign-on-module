@@ -23,9 +23,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
@@ -35,6 +32,10 @@ import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.Authorizer;
 import io.dropwizard.auth.UnauthorizedHandler;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.SecurityContext;
 
 /**
  * Uses access tokens as credentials
@@ -246,7 +247,7 @@ public class AccessTokenAuthFilter<P extends Principal> extends AuthFilter<Strin
     }
 
     // See if the application accepts our claims, which may be null. If not, fail as unauthorized.
-    if (!authenticate(requestContext, credentials, javax.ws.rs.core.SecurityContext.BASIC_AUTH)) {
+    if (!authenticate(requestContext, credentials, SecurityContext.BASIC_AUTH)) {
       throw unauthorizedHandler.buildException(prefix, realm);
     }
   }

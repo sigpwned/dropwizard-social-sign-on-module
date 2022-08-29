@@ -20,12 +20,12 @@
 package com.sigpwned.dropwizard.auth.social.example.webapp.auth;
 
 import java.util.Optional;
-import javax.inject.Inject;
 import com.sigpwned.dropwizard.auth.social.example.webapp.SessionStore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
+import jakarta.inject.Inject;
 
 /**
  * We treat access tokens as session tokens here. In practice, you'd want to use some proper session

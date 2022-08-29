@@ -18,10 +18,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import javax.ws.rs.NotAuthorizedException;
 import org.junit.ClassRule;
 import org.junit.Test;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import jakarta.ws.rs.NotAuthorizedException;
 
 @SuppressWarnings("deprecation")
 public class ExampleWebappIT {

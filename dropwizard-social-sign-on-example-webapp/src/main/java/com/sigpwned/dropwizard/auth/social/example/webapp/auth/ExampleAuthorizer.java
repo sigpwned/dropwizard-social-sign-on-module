@@ -19,10 +19,10 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.auth;
 
-import javax.ws.rs.container.ContainerRequestContext;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import com.sigpwned.dropwizard.auth.social.example.webapp.model.TwitterAccount;
 import io.dropwizard.auth.Authorizer;
+import jakarta.ws.rs.container.ContainerRequestContext;
 
 /**
  * We use a trivially simple authorization model. A real application might include more information

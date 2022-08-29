@@ -19,12 +19,12 @@
  */
 package com.sigpwned.dropwizard.auth.social.example.webapp.configuration;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sigpwned.dropwizard.auth.social.example.webapp.store.oauth.DefaultOAuthTokenStore;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Our OAuth token store is in-memory, so obviously we don't need this. However, this demonstrates

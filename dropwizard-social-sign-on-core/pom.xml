@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.sigpwned</groupId>
         <artifactId>dropwizard-social-sign-on-module</artifactId>
-        <version>3.0.0-b3-SNAPSHOT</version>
+        <version>4.0.0-b3-SNAPSHOT</version>
     </parent>
 
     <artifactId>dropwizard-social-sign-on-core</artifactId>

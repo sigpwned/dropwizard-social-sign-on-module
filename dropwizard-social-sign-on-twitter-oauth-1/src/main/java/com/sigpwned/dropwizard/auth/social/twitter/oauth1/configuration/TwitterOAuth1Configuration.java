@@ -19,10 +19,10 @@
  */
 package com.sigpwned.dropwizard.auth.social.twitter.oauth1.configuration;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import com.sigpwned.dropwizard.auth.social.linting.Generated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class TwitterOAuth1Configuration {
   @NotNull
