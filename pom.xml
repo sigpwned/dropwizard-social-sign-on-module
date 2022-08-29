@@ -65,7 +65,11 @@
 
         <httpmodel.version>0.0.1</httpmodel.version>
         <twitter4j.version>4.0.7</twitter4j.version>
+<<<<<<< HEAD
         <dropwizard.version>2.1.1</dropwizard.version>
+=======
+        <dropwizard.version>2.0.32</dropwizard.version>
+>>>>>>> main
         <slf4j.version>1.7.36</slf4j.version>
         <mockwebserver.version>4.10.0</mockwebserver.version>
     </properties>
