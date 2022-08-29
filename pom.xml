@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <name>dropwizard-social-sign-on-module</name>
     <inceptionYear>2022</inceptionYear>
-    <description>dropwizard-social-sign-on-module adds OAuth social sign-on flows for the most popular social networks to Dropwizard 3.0+</description>
+    <description>dropwizard-social-sign-on-module adds OAuth social sign-on flows for the most popular social networks to Dropwizard 2.0+</description>
     <url>https://github.com/sigpwned/dropwizard-social-sign-on-module</url>
 
     <organization>
