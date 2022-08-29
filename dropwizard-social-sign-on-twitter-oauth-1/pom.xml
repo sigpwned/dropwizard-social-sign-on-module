@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.sigpwned</groupId>
         <artifactId>dropwizard-social-sign-on-module</artifactId>
-        <version>2.0.0-b3</version>
+        <version>2.0.0-b4-SNAPSHOT</version>
     </parent>
 
     <artifactId>dropwizard-social-sign-on-twitter-oauth-1</artifactId>
